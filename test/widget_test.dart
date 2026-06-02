@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:celora/main.dart';
+import 'package:celora/app.dart';
 
 void main() {
   testWidgets('Celora app launches onboarding', (tester) async {

@@ -83,9 +83,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final canNext = current.canNext();
     final isLast = _step == _steps.length - 1;
 
-    return ColoredBox(
-      color: CeloraColors.paler,
-      child: SafeArea(
+    return Scaffold(
+      backgroundColor: CeloraColors.paler,
+      body: SafeArea(
         child: Column(
           children: [
             Padding(
@@ -193,10 +193,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        TextField(
-          decoration: CeloraStyles.inputDecoration(hintText: 'Your name'),
-          style: CeloraStyles.sans(fontSize: 15, color: CeloraColors.ink),
-          onChanged: (value) => setState(() => _name = value),
+        Material(
+          color: CeloraColors.white,
+          borderRadius: BorderRadius.circular(12),
+          child: TextField(
+            decoration: CeloraStyles.inputDecoration(hintText: 'Your name'),
+            style: CeloraStyles.sans(fontSize: 15, color: CeloraColors.ink),
+            onChanged: (value) => setState(() => _name = value),
+          ),
         ),
       ],
     );
@@ -273,39 +277,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        InkWell(
-          onTap: () async {
-            final picked = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
-              lastDate: DateTime.now(),
-              builder: (context, child) {
-                return Theme(
-                  data: Theme.of(context).copyWith(
-                    colorScheme: const ColorScheme.light(
-                      primary: CeloraColors.mid,
-                      onPrimary: Colors.white,
-                      surface: Colors.white,
-                      onSurface: CeloraColors.ink,
-                    ),
-                  ),
-                  child: child!,
-                );
-              },
-            );
-            if (picked != null) {
-              setState(() {
-                _lastStart = DateFormat('yyyy-MM-dd').format(picked);
-              });
-            }
-          },
+        Material(
+          color: CeloraColors.white,
           borderRadius: BorderRadius.circular(12),
-          child: InputDecorator(
-            decoration: CeloraStyles.inputDecoration(),
-            child: Text(
-              displayDate,
-              style: CeloraStyles.sans(fontSize: 15, color: CeloraColors.ink),
+          child: InkWell(
+            onTap: () async {
+              final picked = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2020),
+                lastDate: DateTime.now(),
+                builder: (context, child) {
+                  return Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme: const ColorScheme.light(
+                        primary: CeloraColors.mid,
+                        onPrimary: Colors.white,
+                        surface: Colors.white,
+                        onSurface: CeloraColors.ink,
+                      ),
+                    ),
+                    child: child!,
+                  );
+                },
+              );
+              if (picked != null) {
+                setState(() {
+                  _lastStart = DateFormat('yyyy-MM-dd').format(picked);
+                });
+              }
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: InputDecorator(
+              decoration: CeloraStyles.inputDecoration(),
+              child: Text(
+                displayDate,
+                style: CeloraStyles.sans(fontSize: 15, color: CeloraColors.ink),
+              ),
             ),
           ),
         ),

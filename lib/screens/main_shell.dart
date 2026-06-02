@@ -20,6 +20,7 @@ class MainShell extends StatelessWidget {
     return Consumer<AppProvider>(
       builder: (context, app, _) {
         if (!app.hasProfile) {
+          // OnboardingScreen owns its Scaffold so TextField has a Material ancestor.
           return OnboardingScreen(onDone: app.completeOnboarding);
         }
 
